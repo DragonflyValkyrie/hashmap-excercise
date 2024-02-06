@@ -29,13 +29,25 @@ class Hashmap {
   set(key, value) {
     const hashCode = this.hash(key);
 
-    this.array[hashCode] = value;
+    if (this.array[hashCode] === null) {
+      this.array[hashCode] = [];
+    }
+
+    this.array[hashCode].push({ key, value });
+
     this.resize();
   }
 
   get(key) {
     const index = this.hash(key);
-    return this.array[index];
+    if (this.array[index] !== null) {
+      for (let i = 0; i < this.array[index].length; i++) {
+        if (this.array[index][i].key === key) {
+          return this.array[index][i].value;
+        }
+      }
+    }
+    return undefined;
   }
 
   has(key) {
@@ -77,17 +89,43 @@ class Hashmap {
 
     for (let i = 0; i < this.array.length; i++) {
       if (this.array[i] !== null) {
-        const [key] = this.array[i];
-        keysArray.push(key);
+        for (let j = 0; j < this.array[i].length; j++) {
+          const { key } = this.array[i][j];
+          keysArray.push(key);
+        }
       }
     }
 
     return keysArray;
   }
 
-  values() {}
+  values() {
+    let valuesArray = [];
 
-  entries() {}
+    for (let i = 0; i < this.array.length; i++) {
+      if (this.array[i] !== null) {
+        for (let j = 0; j < this.array[i].length; j++) {
+          const { value } = this.array[i][j];
+          valuesArray.push(value);
+        }
+      }
+    }
+
+    return valuesArray;
+  }
+
+  entries() {
+    const entriesArray = [];
+
+    for (let i = 0; i < this.array.length; i++) {
+      if (this.array[i] !== null) {
+        const value = this.array[i];
+        entriesArray.push(value);
+      }
+    }
+
+    return entriesArray;
+  }
 }
 
 const myHashmap = new Hashmap();
@@ -130,6 +168,12 @@ console.log("Removing 'helicopter':", myHashmap.remove("helicopter"));
 
 // Check the length of the myHashmap
 console.log("Length of the myHashmap:", myHashmap.length());
+
+// Print all values
+console.log("All values:", myHashmap.values());
+
+// Print all values
+console.log("All entries:", myHashmap.entries());
 
 // Clear the myHashmap
 myHashmap.clear();
