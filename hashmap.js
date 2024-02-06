@@ -39,7 +39,8 @@ class Hashmap {
   }
 
   has(key) {
-    if (!this.array[key]) {
+    const index = this.hash(key);
+    if (this.array[index] === null) {
       return false;
     }
 
@@ -91,16 +92,16 @@ class Hashmap {
 
 const myHashmap = new Hashmap();
 
-myHashmap.set("firstname", "Bob");
+myHashmap.set("firstname", "Steve");
 myHashmap.set("lastname", "Smith");
-myHashmap.set("firstname", "John");
-myHashmap.set("lastname", "Baron");
+myHashmap.set("truck", "F150");
+myHashmap.set("game", "Lost Ark");
 myHashmap.set("lastname", "Lindt");
 myHashmap.set("firstname", "Luna");
 
 myHashmap.set("age", "105");
-myHashmap.set("city", "Toronto");
-myHashmap.set("city", "Edmenton");
+myHashmap.set("location", "Toronto");
+myHashmap.set("location", "Edmenton");
 myHashmap.set("language", "JavaScript");
 myHashmap.set("plane", "SR-71");
 myHashmap.set("dog", "Shiba");
@@ -113,8 +114,10 @@ console.log("Keys:", myHashmap.keys());
 // Print individual values using get
 console.log("Value for 'firstname':", myHashmap.get("firstname"));
 console.log("Value for 'lastname':", myHashmap.get("lastname"));
+console.log("Value for 'truck':", myHashmap.get("truck"));
+console.log("Value for 'game':", myHashmap.get("game"));
 console.log("Value for 'age':", myHashmap.get("age"));
-console.log("Value for 'city':", myHashmap.get("city"));
+console.log("Value for 'location':", myHashmap.get("location"));
 
 // Check if certain keys exist
 console.log("Does 'language' exist?", myHashmap.has("language"));
@@ -123,6 +126,7 @@ console.log("Does 'country' exist?", myHashmap.has("country"));
 // Remove a key
 console.log("Removing 'car':", myHashmap.remove("car"));
 console.log("Keys after removing 'car':", myHashmap.keys());
+console.log("Removing 'helicopter':", myHashmap.remove("helicopter"));
 
 // Check the length of the myHashmap
 console.log("Length of the myHashmap:", myHashmap.length());
